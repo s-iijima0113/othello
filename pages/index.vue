@@ -38,22 +38,14 @@ export default {
       const board = this.board
 
       if (board[y - 1][x - 1] === 0) {
-        putable = true
-        if (board[y][x - 1] !== 0) {
-          putable = true
-          if (board[y - 2][x - 1] !== 0) {
-            putable = true
-            if (board[y - 1][x] !== 0) {
-              putable = true
-              if (board[y - 1][x - 2] !== 0) {
-                putable = true
+        if (board[y - 1][x] !== 0) {
+          if (board[y - 1][x - 2] !== 0) {
+            if (board[y][x - 1] !== 0) {
+              if (board[y - 2][x - 1] !== 0) {
                 if (board[y][x] !== 0) {
-                  putable = true
-                  if (board[y - 2][x] !== 0) {
-                    putable = true
-                    if (board[y - 2][x - 2] !== 0) {
-                      putable = true
-                      if (board[y][x - 2] !== 0) {
+                  if (board[y - 1][x] !== 0) {
+                    if (board[y][x - 2] !== 0) {
+                      if (board[y - 2][x - 2] !== 0) {
                         putable = true
                       }
                     }
