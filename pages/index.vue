@@ -39,21 +39,21 @@ export default {
 
       if (board[y - 1][x - 1] === 0) {
         if (board[y - 1][x] !== 0) {
-          if (board[y - 1][x - 2] !== 0) {
-            if (board[y][x - 1] !== 0) {
-              if (board[y - 2][x - 1] !== 0) {
-                if (board[y][x] !== 0) {
-                  if (board[y - 1][x] !== 0) {
-                    if (board[y][x - 2] !== 0) {
-                      if (board[y - 2][x - 2] !== 0) {
-                        putable = true
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
+          putable = true
+        } else if (board[y - 1][x - 2] !== 0) {
+          putable = true
+        } else if (board[y][x - 1] !== 0) {
+          putable = true
+        } else if (board[y - 2][x - 1] !== 0) {
+          putable = true
+        } else if (board[y][x] !== 0) {
+          putable = true
+        } else if (board[y - 2][x] !== 0) {
+          putable = true
+        } else if (board[y][x - 2] !== 0) {
+          putable = true
+        } else if (board[y - 2][x - 2] !== 0) {
+          putable = true
         }
       } else {
         alert('ここにはおけません！')
