@@ -35,11 +35,10 @@ export default {
   methods: {
     checkPutable (x, y) {
       let putable = false
-      const turn = this.turn
       const board = this.board
 
       if (board[y - 1][x - 1] === 0) {
-        if (board[y - 1][x] !== turn) {
+        if (board[y - 1][x] !== 0) {
           putable = true
         } else if (board[y - 1][x - 2] !== 0) {
           putable = true
