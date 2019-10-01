@@ -29,28 +29,32 @@ export default {
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0]
-      ]
+      ],
+      turn: -1
     }
   },
   methods: {
     checkPutable (x, y) {
       let putable = false
+      const turn = this.turn
       const board = this.board
+      const currentX = x - 1
+      const currentY = y - 1
 
-      if (board[y - 1][x - 1] === 0) {
-        if (board[y - 1][x] !== 0) {
+      if (board[currentY][currentX] === 0) {
+        if (board[currentY - 1][x] !== 0) {
           putable = true
-        } else if (board[y - 1][x - 2] !== 0) {
+        } else if (board[currentY][currentX - 1] !== 0) {
           putable = true
-        } else if (board[y][x - 1] !== 0) {
+        } else if (board[y][currentX] !== 0) {
           putable = true
-        } else if (board[y - 2][x - 1] !== 0) {
+        } else if (board[currentY - 1][currentX] !== 0) {
           putable = true
         } else if (board[y][x] !== 0) {
           putable = true
-        } else if (board[y - 2][x] !== 0) {
+        } else if (board[currentY][x] !== 0) {
           putable = true
-        } else if (board[y][x - 2] !== 0) {
+        } else if (board[y][currentX] !== 0) {
           putable = true
         } else if (board[y - 2][x - 2] !== 0) {
           putable = true
@@ -58,7 +62,7 @@ export default {
       } else {
         alert('ここにはおけません！')
       }
-      console.log(x, y, putable)
+      console.log(x, y, putable, turn)
     }
   }
 }
