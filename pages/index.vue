@@ -42,21 +42,21 @@ export default {
       const currentY = y - 1
 
       if (board[currentY][currentX] === 0) {
-        if (board[currentY - 1][x] !== 0) {
+        if (board[currentY - 1][x] === 1) {
           putable = true
-        } else if (board[currentY][currentX - 1] !== 0) {
+        } else if (board[currentY][currentX - 1] === 1) {
           putable = true
-        } else if (board[y][currentX] !== 0) {
+        } else if (board[y][currentX] === 1) {
           putable = true
-        } else if (board[currentY - 1][currentX] !== 0) {
+        } else if (board[currentY - 1][currentX] === 1) {
           putable = true
-        } else if (board[y][x] !== 0) {
+        } else if (board[y][x] === 1) {
           putable = true
-        } else if (board[currentY][x] !== 0) {
+        } else if (board[currentY][x] === 1) {
           putable = true
-        } else if (board[y][currentX] !== 0) {
+        } else if (board[currentY + 1][currentX - 1] === 1) {
           putable = true
-        } else if (board[y - 2][x - 2] !== 0) {
+        } else if (board[y - 2][x - 2] === 1) {
           putable = true
         }
       } else {
