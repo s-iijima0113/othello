@@ -5,7 +5,7 @@
         v-for="x in board[y - 1].length"
         :key="`${x}-${y}`"
         class="othello-coin"
-        @click="checkPutable(x, y)"
+        @click="checkPutable(x - 1, y - 1)"
       >
         <div
           v-if="board[y - 1][x - 1] !== 0"
@@ -38,26 +38,24 @@ export default {
       let putable = false
       const turn = this.turn
       const board = this.board
-      const currentX = x - 1
-      const currentY = y - 1
 
-      if (board[currentY][currentX] === 0) {
-        if (board[currentY - 1][x] === 1) {
-          putable = true
-        } else if (board[currentY][currentX - 1] !== 1) {
-          putable = true
-        } else if (board[y][currentX] === 1) {
-          putable = true
-        } else if (board[currentY - 1][currentX] === 1) {
-          putable = true
-        } else if (board[y][x] === 1) {
-          putable = true
-        } else if (board[currentY][x] === 1) {
-          putable = true
-        } else if (board[currentY + 1][currentX - 1] === 1) {
-          putable = true
-        } else if (board[y - 2][x - 2] === 1) {
-          putable = true
+      if (board[y][x] === 0) { // クリックした場所
+        if (board[y][x - 1] === 1) { // 左
+          if (board[y][x - 2] === -1 || board[y][x + 2] === -1 || board[y - 2][x] === -1 || board[y + 2][x] === -1) {
+            putable = true
+          }
+        } else if (board[y + 1][x] === 1) { // 上
+          if (board[y][x + 2] === -1 || board[y][x + 2] === -1 || board[y - 2][x] === -1 || board[y + 2][x] === -1) {
+            putable = true
+          }
+        } else if (board[y - 1][x] === 1) { // 下
+          if (board[y - 2][x] === -1 || board[y][x + 2] === -1 || board[y - 2][x] === -1 || board[y + 2][x] === -1) {
+            putable = true
+          }
+        } else if (board[y][x + 1] === 1) { // 右
+          if (board[y + 2][x] === -1 || board[y][x + 2] === -1 || board[y - 2][x] === -1 || board[y + 2][x] === -1) {
+            putable = true
+          }
         }
       } else {
         alert('ここにはおけません！')
