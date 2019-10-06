@@ -35,30 +35,55 @@ export default {
   },
   methods: {
     checkPutable (x, y) {
+      this.board = JSON.parse(JSON.stringify(this.board))
       let putable = false
       const turn = this.turn
       const board = this.board
+      let candidateX
+      let candidateY
 
       if (board[y][x] === 0) { // クリックした場所
-        if (board[y][x - 1] === 1) { // 左
-          if (board[y][x - 2] === -1 || board[y][x + 2] === -1 || board[y - 2][x] === -1 || board[y + 2][x] === -1) {
-            putable = true
-          }
-        } else if (board[y + 1][x] === 1) { // 上
-          if (board[y][x + 2] === -1 || board[y][x + 2] === -1 || board[y - 2][x] === -1 || board[y + 2][x] === -1) {
-            putable = true
-          }
-        } else if (board[y - 1][x] === 1) { // 下
-          if (board[y - 2][x] === -1 || board[y][x + 2] === -1 || board[y - 2][x] === -1 || board[y + 2][x] === -1) {
-            putable = true
-          }
-        } else if (board[y][x + 1] === 1) { // 右
-          if (board[y + 2][x] === -1 || board[y][x + 2] === -1 || board[y - 2][x] === -1 || board[y + 2][x] === -1) {
-            putable = true
-          }
+        if (board[y][x - 1] === -turn && board[y][x - 2] === turn) { // 左
+          putable = true
+          candidateY = y
+          candidateX = x - 1
+        } else if (board[y - 1][x] === -turn && board[y - 2][x] === turn) { // 上
+          putable = true
+          candidateY = y - 1
+          candidateX = x
+        } else if (board[y + 1][x] === -turn && board[y + 2][x] === turn) { // 下
+          putable = true
+          candidateY = y + 1
+          candidateX = x
+        } else if (board[y][x + 1] === -turn && board[y][x + 2] === turn) { // 右
+          putable = true
+          candidateY = y
+          candidateX = x + 1
+        } else if (board[y - 1][x + 1] === -turn && board[y - 2][x + 2] === turn) { // 右上
+          putable = true
+          candidateY = y - 1
+          candidateX = x + 1
+        } else if (board[y + 1][x + 1] === -turn && board[y + 2][x + 2] === turn) { // 右下
+          putable = true
+          candidateY = y + 1
+          candidateX = x + 1
+        } else if (board[y + 1][x - 1] === -turn && board[y + 2][x - 2] === turn) { // 左下
+          putable = true
+          candidateY = y + 1
+          candidateX = x - 1
+        } else if (board[y - 1][x - 1] === -turn && board[y - 2][x - 2] === turn) { // 左上
+          putable = true
+          candidateY = y - 1
+          candidateX = x - 1
         }
+      }
+
+      if (putable === true) {
+        this.board[y][x] = turn
+        this.board[candidateY][candidateX] = turn
+        this.turn = -turn
       } else {
-        alert('ここにはおけません！')
+        console.log('ここにはおけません！')
       }
       console.log(x, y, putable, turn)
     }
