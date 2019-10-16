@@ -2,9 +2,9 @@
   <div class="othello-box">
     <template v-for="y in board.length">
       <div
-        v-for="x in board[y - 1].length"
+        v-for="x in board.length"
         :key="`${x}-${y}`"
-        class="othello-coin"
+        class="othello-box-line"
         @click="checkPutable(x - 1, y - 1)"
       >
         <div
@@ -43,11 +43,38 @@ export default {
       let candidateY
 
       if (board[y][x] === 0) { // クリックした場所
-        const dandidater = [x=1,y=1]
-        if (candidates > 0) {
-          for (candidates ) {
-            board = turnS
-          }
+        if (board[y][x - 1] === -turn && board[y][x - 2] === turn) { // 左
+          putable = true
+          candidateY = y
+          candidateX = x - 1
+        } else if (board[y - 1][x] === -turn && board[y - 2][x] === turn) { // 上
+          putable = true
+          candidateY = y - 1
+          candidateX = x
+        } else if (board[y + 1][x] === -turn && board[y + 2][x] === turn) { // 下
+          putable = true
+          candidateY = y + 1
+          candidateX = x
+        } else if (board[y][x + 1] === -turn && board[y][x + 2] === turn) { // 右
+          putable = true
+          candidateY = y
+          candidateX = x + 1
+        } else if (board[y - 1][x + 1] === -turn && board[y - 2][x + 2] === turn) { // 右上
+          putable = true
+          candidateY = y - 1
+          candidateX = x + 1
+        } else if (board[y + 1][x + 1] === -turn && board[y + 2][x + 2] === turn) { // 右下
+          putable = true
+          candidateY = y + 1
+          candidateX = x + 1
+        } else if (board[y + 1][x - 1] === -turn && board[y + 2][x - 2] === turn) { // 左下
+          putable = true
+          candidateY = y + 1
+          candidateX = x - 1
+        } else if (board[y - 1][x - 1] === -turn && board[y - 2][x - 2] === turn) { // 左上
+          putable = true
+          candidateY = y - 1
+          candidateX = x - 1
         }
       }
 
@@ -72,7 +99,7 @@ export default {
   margin: 50px auto;
 }
 
-.othello-coin{
+.othello-box-line{
   height:12.5%;
   width: 12.5%;
   border: solid 1px black;
