@@ -43,39 +43,12 @@ export default {
       let candidateY
 
       if (board[y][x] === 0) { // クリックした場所
-        if (board[y][x - 1] === -turn && board[y][x - 2] === turn) { // 左
-          putable = true
-          candidateY = y
-          candidateX = x - 1
-        } else if (board[y - 1][x] === -turn && board[y - 2][x] === turn) { // 上
-          putable = true
-          candidateY = y - 1
-          candidateX = x
-        } else if (board[y + 1][x] === -turn && board[y + 2][x] === turn) { // 下
-          putable = true
-          candidateY = y + 1
-          candidateX = x
-        } else if (board[y][x + 1] === -turn && board[y][x + 2] === turn) { // 右
-          putable = true
-          candidateY = y
-          candidateX = x + 1
-        } else if (board[y - 1][x + 1] === -turn && board[y - 2][x + 2] === turn) { // 右上
-          putable = true
-          candidateY = y - 1
-          candidateX = x + 1
-        } else if (board[y + 1][x + 1] === -turn && board[y + 2][x + 2] === turn) { // 右下
-          putable = true
-          candidateY = y + 1
-          candidateX = x + 1
-        } else if (board[y + 1][x - 1] === -turn && board[y + 2][x - 2] === turn) { // 左下
-          putable = true
-          candidateY = y + 1
-          candidateX = x - 1
-        } else if (board[y - 1][x - 1] === -turn && board[y - 2][x - 2] === turn) { // 左上
-          putable = true
-          candidateY = y - 1
-          candidateX = x - 1
-        }
+       const candidates = [x = 1, y = 3]
+       if (candidates>0) {
+         for (candidates) {
+           board = turn
+         }
+       }
       }
 
       if (putable === true) {
