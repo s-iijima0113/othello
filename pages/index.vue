@@ -1,12 +1,25 @@
 <template>
   <div class="othello-box">
     <template v-for="y in board.length">
+      <!-- 配列の数を数えている（８） -->
       <div
-        v-for="x in board.length"
-        :key="`${x}-${y}`"
+        v-for="x in [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, -1, 1, 0, 0, 0],
+        [0, 0, 0, 1, -1, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0]
+      ][y - 1].length"
+        :key="`${x}${y}`"
         class="othello-box-line"
         @click="checkPutable(x - 1, y - 1)"
       >
+      <!-- ①配列の子要素の数を数えている -->
+      <!-- ②要素にラベルをはっている -->
+      <!-- ③クリックしたらcheckPutableの関数を呼び出す。クリックした座標をx-1,y-1として渡す-->
         <div
           v-if="board[y - 1][x - 1] !== 0"
           :class="['stone', board[y - 1][x - 1] === 1 ? 'white' : 'black']"
@@ -43,7 +56,6 @@ export default {
       let candidateY
 
       if (board[y][x] === 0) { // クリックした場所
-       const candidates = [x = 1, y = 3]
        if (candidates>0) {
          for (candidates) {
            board = turn
