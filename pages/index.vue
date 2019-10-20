@@ -17,7 +17,7 @@
         class="othello-box-line"
         @click="checkPutable(x - 1, y - 1)"
       >
-      <!-- ①配列の子要素の数を数えている -->
+      <!-- ①配列の子要素の数を数えている(8) -->
       <!-- ②要素にラベルをはっている -->
       <!-- ③クリックしたらcheckPutableの関数を呼び出す。クリックした座標をx-1,y-1として渡す-->
         <div
@@ -37,7 +37,7 @@ export default {
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, -1, 1, 0, 0, 0],
+        [0, 1, 1, -1, 1, 0, 0, 0],
         [0, 0, 0, 1, -1, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
@@ -56,17 +56,19 @@ export default {
       let candidateY
 
       if (board[y][x] === 0) { // クリックした場所
-       if (candidates>0) {
-         for (candidates) {
-           board = turn
-         }
-       }
+        for (let i = 1; i < 9; i++) {
+          if (board[y][x + i] !== turn) {
+            break
+          }
+          putable = true
+          candidateY = y // 色を変える候補（Y）
+          candidateX = x + i // 色を変える候補（X）
+        }
       }
-
       if (putable === true) {
         this.board[y][x] = turn
         this.board[candidateY][candidateX] = turn
-        this.turn = -turn
+        this.turn = -turn // ターンの変更
       } else {
         console.log('ここにはおけません！')
       }
