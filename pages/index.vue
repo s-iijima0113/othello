@@ -57,17 +57,22 @@ export default {
 
       if (board[y][x] === 0) { // クリックした場所
         for (let i = 1; i < 9; i++) {
-          if (board[y][x + i] !== turn) {
+          if (board[y][x + i] !== -turn) {
             break
           }
           putable = true
           candidateY = y // 色を変える候補（Y）
-          candidateX = x + i // 色を変える候補（X）
+          candidateX = x // 色を変える候補（X）
         }
       }
       if (putable === true) {
         this.board[y][x] = turn
-        this.board[candidateY][candidateX] = turn
+        for (let i = 1; i < 9; i++) {
+          this.board[candidateY][candidateX + i] = turn
+          if (board[candidateY][candidateX + i] !== -turn) {
+            break
+          }
+        }
         this.turn = -turn // ターンの変更
       } else {
         console.log('ここにはおけません！')
