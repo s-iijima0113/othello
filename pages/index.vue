@@ -19,7 +19,7 @@
       >
       <!-- ①配列の子要素の数を数えている(8) -->
       <!-- ②要素にラベルをはっている -->
-      <!-- ③クリックしたらcheckPutableの関数を呼び出す。クリックした座標をx-1,y-1として渡す-->
+      <!-- ③クリックしたらcheckPutableの関数を呼び出す。クリックした座標をx-1,y-1として渡す。（x - 1, y - 1）なのは、配列が０から始まるから。※X➡1~8, Y➡1~8をlenghtで定義済-->
         <div
           v-if="board[y - 1][x - 1] !== 0"
           :class="['stone', board[y - 1][x - 1] === 1 ? 'white' : 'black']"
@@ -47,32 +47,28 @@ export default {
     }
   },
   methods: {
-    checkPutable (x, y) {
+    checkPutable (x, y) { // 上記の@click="checkPutableのx-1(0~7)とy-1(0~7)をもってきている。スコープ（ラベル）が同じ変数は値を持ってくる"
       this.board = JSON.parse(JSON.stringify(this.board))
       let putable = false
       const turn = this.turn
       const board = this.board
-      let candidateX
-      let candidateY
+      const comfirmedArray = [] // 確定したものの配列
 
       if (board[y][x] === 0) { // クリックした場所
+        const candidates = [{ x: 1, y: 4 }, { x: 2, y: 4 }] // めくれるかもしれない（５０％の配列）
         for (let i = 1; i < 9; i++) {
           if (board[y][x + i] !== -turn) {
             break
           }
           putable = true
-          candidateY = y // 色を変える候補（Y）
-          candidateX = x // 色を変える候補（X）
+          comfirmedArray.push(candidates)
         }
       }
+      // ☝色変ができるか確認
+      console.log(candidateY, candidateX)
       if (putable === true) {
         this.board[y][x] = turn
-        for (let i = 1; i < 9; i++) {
-          this.board[candidateY][candidateX + i] = turn
-          if (board[candidateY][candidateX + i] !== -turn) {
-            break
-          }
-        }
+        this.board[candidateY][candidateX] = turn
         this.turn = -turn // ターンの変更
       } else {
         console.log('ここにはおけません！')
@@ -81,6 +77,7 @@ export default {
     }
   }
 }
+// 色の変更のみを行う
 </script>
 
 <style>
