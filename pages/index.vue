@@ -55,20 +55,32 @@ export default {
       const comfirmedArray = [] // 確定したものの配列
 
       if (board[y][x] === 0) { // クリックした場所
-        const candidates = [{ x: 1, y: 4 }, { x: 2, y: 4 }] // めくれるかもしれない（５０％の配列）
+        const candidates = [] // めくれるかもしれない（５０％の配列）
         for (let i = 1; i < 9; i++) {
-          if (board[y][x + i] !== -turn) {
+          if (board[y][x + i] === 0) {
             break
+          } else if (board[y][x + i] === 1) {
+            candidates.push({ a: x + i, b: 4 })
+          } else if (board[y][x + i] === -1) {
+            putable = true
+            comfirmedArray.push(...candidates)
           }
-          putable = true
-          comfirmedArray.push(candidates)
         }
       }
       // ☝色変ができるか確認
-      console.log(candidateY, candidateX)
+      // 👇色を変える処理
+      console.log(comfirmedArray)
       if (putable === true) {
-        this.board[y][x] = turn
-        this.board[candidateY][candidateX] = turn
+        const y = []
+        for (const key in comfirmedArray) {
+          y.push((comfirmedArray[key].b))
+        }
+        console.log(y) // yの値を出力
+        const x = []
+        for (const key in comfirmedArray) {
+          x.push((comfirmedArray[key].a))
+        }
+        console.log(x) // xの値を出力
         this.turn = -turn // ターンの変更
       } else {
         console.log('ここにはおけません！')
