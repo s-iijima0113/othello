@@ -72,8 +72,8 @@
         // console.log(comfirmedArray)
         if (putable === true) {
           for (const key in comfirmedArray) {
-            comfirmedArray.key.a
-            console.log(a)
+            const value = comfirmedArray[key]
+            console.log(value)
           }
           this.turn = -turn // ターンの変更
         } else {
