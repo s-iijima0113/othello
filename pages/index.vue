@@ -74,7 +74,9 @@ export default {
         for (const key in comfirmedArray) {
           const value = comfirmedArray[key]
           console.log(value.a)
-          this.board[value.b][value.a] = turn
+          console.log(value.b)
+          this.board[y][x] = turn
+          this.board[value.b - 1][value.a] = turn
         }
         this.turn = -turn // ターンの変更
       } else {
