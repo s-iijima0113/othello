@@ -37,7 +37,7 @@ export default {
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 1, 1, -1, 1, 0, 0, 0],
+        [0, 0, 0, -1, 1, 0, 0, 0],
         [0, 0, 0, 1, -1, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
@@ -56,14 +56,29 @@ export default {
 
       if (board[y][x] === 0) { // クリックした場所
         const candidates = [] // めくれるかもしれない（５０％の配列）
-        for (let i = 1; i < 9; i++) {
+        const directions = [
+          { directionX: 1, directionY: 0 },
+          { directionX: -1, directionY: 0 },
+          { directionX: 1, directionY: 1 },
+          { directionX: -1, directionY: 1 },
+          { directionX: 1, directionY: -1 },
+          { directionX: -1, directionY: -1 },
+          { directionX: 0, directionY: 1 },
+          { directionX: 0, directionY: -1 }
+        ]
+        for (let k = 0; k < 8; k++) {
+          console.log(directions[k].directionX)
+          console.log(directions[k].directionY)
+          for (let i = 1; i < 9; i++)
           if (board[y][x + i] === 0) {
             break
-          } else if (board[y][x + i] === 1) {
-            candidates.push({ a: x + i, b: 4 })
-          } else if (board[y][x + i] === -1) {
+          } else if (board[y][x + i] === -turn) {
+            candidates.push({ a: x + i, b: y })
+            // console.log(candidates)
+          } else if (board[y][x + i] === turn) {
             putable = true
             comfirmedArray.push(...candidates)
+            // console.log(comfirmedArray)
           }
         }
       }
@@ -73,10 +88,10 @@ export default {
       if (putable === true) {
         for (const key in comfirmedArray) {
           const value = comfirmedArray[key]
-          console.log(value.a)
-          console.log(value.b)
+          // console.log(value.a)
+          // console.log(value.b)
           this.board[y][x] = turn
-          this.board[value.b - 1][value.a] = turn
+          this.board[value.b][value.a] = turn
         }
         this.turn = -turn // ターンの変更
       } else {
