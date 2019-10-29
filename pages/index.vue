@@ -4,14 +4,14 @@
       <!-- 配列の数を数えている（８） -->
       <div
         v-for="x in [
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, -1, 1, 0, 0, 0],
-        [0, 0, 0, 1, -1, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0]
+          [0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, -1, 1, 0, 0, 0],
+          [0, 0, 0, 1, -1, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0]
       ][y - 1].length"
         :key="`${x}${y}`"
         class="othello-box-line"
@@ -49,13 +49,11 @@ export default {
   methods: {
     checkPutable (x, y) { // 上記の@click="checkPutableのx-1(0~7)とy-1(0~7)をもってきている。スコープ（ラベル）が同じ変数は値を持ってくる"
       this.board = JSON.parse(JSON.stringify(this.board))
-      let putable = false
       const turn = this.turn
       const board = this.board
       const comfirmedArray = [] // 確定したものの配列
 
       if (board[y][x] === 0) { // クリックした場所
-        const candidates = [] // めくれるかもしれない（５０％の配列）
         const directions = [
           { directionX: 1, directionY: 0 },
           { directionX: -1, directionY: 0 },
@@ -67,25 +65,27 @@ export default {
           { directionX: 0, directionY: -1 }
         ]
         for (let k = 0; k < 8; k++) {
-          console.log(directions[k].directionX)
-          console.log(directions[k].directionY)
-          for (let i = 1; i < 9; i++)
-          if (board[y][x + i] === 0) {
-            break
-          } else if (board[y][x + i] === -turn) {
-            candidates.push({ a: x + i, b: y })
+          const candidates = [] // めくれるかもしれない（５０％の配列）
+          // console.log(directions[k].directionX)
+          // console.log(directions[k].directionY)
+          for (let i = 1; i < 9; i++) {
+            if (board[y + i * directions[k].directionY][x + i * directions[k].directionX] === 0) {
+              break
+            } else if (board[y + i * directions[k].directionY][x + i * directions[k].directionX] === -turn) {
+              candidates.push({ a: x + i * directions[k].directionX, b: y + i * directions[k].directionY })
             // console.log(candidates)
-          } else if (board[y][x + i] === turn) {
-            putable = true
-            comfirmedArray.push(...candidates)
-            // console.log(comfirmedArray)
+            } else if (board[y + i * directions[k].directionY][x + i * directions[k].directionX] === turn) {
+              comfirmedArray.push(...candidates)
+              console.log(comfirmedArray)
+              break
+            }
           }
         }
       }
       // ☝色変ができるか確認
       // 👇色を変える処理
       // console.log(comfirmedArray)
-      if (putable === true) {
+      if (comfirmedArray.length !== 0) {
         for (const key in comfirmedArray) {
           const value = comfirmedArray[key]
           // console.log(value.a)
