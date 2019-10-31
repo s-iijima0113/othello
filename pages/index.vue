@@ -47,6 +47,10 @@ export default {
     }
   },
   methods: {
+    countBlackAndWhiteCoin () {
+    },
+    checkCoinFull () {
+    },
     checkPutable (x, y) { // 上記の@click="checkPutableのx-1(0~7)とy-1(0~7)をもってきている。スコープ（ラベル）が同じ変数は値を持ってくる"
       this.board = JSON.parse(JSON.stringify(this.board))
       const turn = this.turn
@@ -69,14 +73,20 @@ export default {
           // console.log(directions[k].directionX)
           // console.log(directions[k].directionY)
           for (let i = 1; i < 9; i++) {
-            if (board[y + i * directions[k].directionY][x + i * directions[k].directionX] === 0) {
+            if (board[y + i * directions[k].directionY] === undefined) {
+              break
+            } else if (board[y + i * directions[k].directionY][x + i * directions[k].directionX] === 0) {
+              // console.log([y + i * directions[k].directionY])
+              // console.log([x + i * directions[k].directionX])
               break
             } else if (board[y + i * directions[k].directionY][x + i * directions[k].directionX] === -turn) {
               candidates.push({ a: x + i * directions[k].directionX, b: y + i * directions[k].directionY })
             // console.log(candidates)
             } else if (board[y + i * directions[k].directionY][x + i * directions[k].directionX] === turn) {
               comfirmedArray.push(...candidates)
-              console.log(comfirmedArray)
+              // console.log(comfirmedArray)
+              break
+            } else if (board[y + i * directions[k].directionY][x + i * directions[k].directionX] === undefined) {
               break
             }
           }
